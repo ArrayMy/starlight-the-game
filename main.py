@@ -13,16 +13,15 @@ pygame.display.set_caption("app name")
 charAttr = {
   'sizeHeight': 30,
   'sizeWidth': 30,
-  'positionX': 15,
-  'positionY': 15,
+  'positionX': 140,
+  'positionY': 390,
   'bgColor': {
-    'red': 255,
+    'red': 0,
     'green': 0,
-    'blue': 0
+    'blue': 255
   },
   'image': '',
   'moveActions': {
-    'jump': False,
     'stepRight': False,
     'stepLeft': False,
   }
@@ -37,6 +36,23 @@ def stepRight(char):
   if returnAction(char,'stepRight') == False:
     char['positionY'] = char['positionY'] + 1 
 
+def showCharacter():
+  pygame.draw.rect(window, (charAttr['bgColor']['red'],charAttr['bgColor']['green'],charAttr['bgColor']['blue']), (charAttr['positionY'],charAttr['positionX'],charAttr['sizeWidth'], charAttr['sizeHeight']))
+
+def showItemInBase(rColor,gColor,bColor,positionX,positionY,width,height):
+  pygame.draw.rect(window, (rColor,gColor,bColor), (positionX,positionY,width,height))
+
+def showBase():
+  proces = True
+  localWidth = width
+  while proces:
+    if(localWidth > 0):
+      localWidth = localWidth - 60  
+      showItemInBase(0,255,0,localWidth,20,40,40)
+      showItemInBase(0,255,0,localWidth,80,40,40)
+    else:
+      proces = False
+
 #help functions
 def returnAction(char,returnAction):
   for action in charAttr['moveActions']:
@@ -44,21 +60,28 @@ def returnAction(char,returnAction):
       return charAttr['moveActions'][action]
   return "undefiend action"  
 
-app = True
-#start program
-while app:
-  window.fill(backgroundColor)
-  #event listening
+def listenTurnOff():
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
             app = False
+
+def listeningKeyboard():
+  listenTurnOff()
   keys = pygame.key.get_pressed()
   if keys[pygame.K_LEFT]:
     stepLeft(charAttr)
   if keys[pygame.K_RIGHT]:
     stepRight(charAttr)
-  #draw character  
-  pygame.draw.rect(window, (charAttr['bgColor']['red'],charAttr['bgColor']['green'],charAttr['bgColor']['blue']), (charAttr['positionY'],charAttr['positionX'],charAttr['sizeWidth'], charAttr['sizeHeight']))
+
+app = True
+#start program
+while app:
+  window.fill(backgroundColor)
+
+  listeningKeyboard()
+  showBase()
+  showCharacter()
+  
   pygame.display.update()
 
   #testing functions
