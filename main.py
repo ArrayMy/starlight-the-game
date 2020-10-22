@@ -1,6 +1,6 @@
 # fffffaff v0.1
 # by ArrayMy
-import pygame, time
+import pygame, time, random
 #start instance
 pygame.init()
 
@@ -27,6 +27,19 @@ charAttr = {
   }
 }
 
+globalEnemy = {
+  'enemyCount' : 0,
+  'maxEnemyCount': 1,
+  'delay': False,
+}
+
+enemy = {
+  'positionX' : 0,
+  'positionY' : 540,
+}
+
+speed = 0.25
+
 #game functions
 def stepLeft(char):
   if returnAction(char,'stepLeft') == False:
@@ -39,7 +52,7 @@ def stepRight(char):
 def showCharacter():
   pygame.draw.rect(window, (charAttr['bgColor']['red'],charAttr['bgColor']['green'],charAttr['bgColor']['blue']), (charAttr['positionY'],charAttr['positionX'],charAttr['sizeWidth'], charAttr['sizeHeight']))
 
-def showItemInBase(rColor,gColor,bColor,positionX,positionY,width,height):
+def showItem(rColor,gColor,bColor,positionX,positionY,width,height):
   pygame.draw.rect(window, (rColor,gColor,bColor), (positionX,positionY,width,height))
 
 def showBase():
@@ -48,10 +61,19 @@ def showBase():
   while proces:
     if(localWidth > 0):
       localWidth = localWidth - 60  
-      showItemInBase(0,255,0,localWidth,20,40,40)
-      showItemInBase(0,255,0,localWidth,80,40,40)
+      showItem(0,255,0,localWidth,20,40,40)
+      showItem(0,255,0,localWidth,80,40,40)
     else:
       proces = False
+
+def createEnemy():
+  localWidth = random.randint(40,740)
+  showItem(255,0,0,localWidth,540,40,40)
+  return localWidth
+
+def showEnemy(enemy):
+  showItem(255,0,0,enemy['positionX'],enemy['positionY'],40,40)
+  return enemy['positionY'] - 1
 
 #help functions
 def returnAction(char,returnAction):
@@ -63,10 +85,10 @@ def returnAction(char,returnAction):
 def listenTurnOff():
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
-            app = False
+      return False
+  return True    
 
 def listeningKeyboard():
-  listenTurnOff()
   keys = pygame.key.get_pressed()
   if keys[pygame.K_LEFT]:
     stepLeft(charAttr)
@@ -77,11 +99,15 @@ app = True
 #start program
 while app:
   window.fill(backgroundColor)
-
+  app = listenTurnOff()
   listeningKeyboard()
   showBase()
   showCharacter()
-  
+  if globalEnemy['maxEnemyCount'] >= globalEnemy['enemyCount']:
+    enemy['positionX'] = createEnemy()
+    globalEnemy['enemyCount'] = globalEnemy['enemyCount'] + 1
+  else:
+    enemy['positionY'] = showEnemy(enemy)
   pygame.display.update()
 
   #testing functions
