@@ -2,20 +2,38 @@ import pygame
 
 class Window:
 
-  pygame = False
-
   def __init__(self):
-    if self.pygame == False:
-      self.pygame = pygame.init()
+    pygame.init()
+      
 
-  def setSize(self,width, height):
-    self.pygame.display.set_mode((width, height))
+  def setSize(self,width,height):
+    self.window = pygame.display.set_mode([width, height])
 
   def setName(self,name):
-    self.pygame.display.set_caption(name)
+    pygame.display.set_caption(name)
 
   def window_show_character(self, character):
-    self.pygame.draw.rect(
-      self.pygame, (
-        character.attributes['color'],
-        character.attributes['positionY'],character.attributes['positionX'],character.attributes['sizeWidth'],character.attributes['sizeHeight']))
+    pygame.draw.rect(
+      self.window,
+      (character.attributes['color']),
+      (character.attributes['positionY'],character.attributes['positionX'],character.attributes['sizeWidth'],character.attributes['sizeHeight']))
+  
+  def window_close_cross(self):
+    for event in pygame.event.get():
+     if event.type == pygame.QUIT:
+      return False
+    return True    
+
+  def window_listen_keyboard(self):
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+      return 'left'
+    if keys[pygame.K_RIGHT]:
+      return 'right'
+      
+
+  def window_fill(self,backgroundColour):
+    self.window.fill(backgroundColour)
+
+  def window_update(self):
+    pygame.display.update()

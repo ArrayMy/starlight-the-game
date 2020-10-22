@@ -1,6 +1,7 @@
 from app.characters import Characters
 from app.window import Window
 
+
 app = Window()
 app.setSize(800,600)
 app.setName('Application Name')
@@ -11,9 +12,16 @@ mainCharacter.set(
   sizeWidth = 30,
   positionX = 140,
   positionY = 390,
-  color = '0,0,255')
+  color = (0,0,255))
 
-app.window_show_character(mainCharacter)
+program_status = True
+
+while program_status:
+  program_status = app.window_close_cross()
+  app.window_fill((0,0,0))
+  app.window_show_character(mainCharacter)
+  mainCharacter.move(app.window_listen_keyboard())
+  app.window_update()
 
 #while app:
   #window.fill(backgroundColor)
