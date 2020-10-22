@@ -20,45 +20,48 @@ charAttr = {
     'green': 0,
     'blue': 0
   },
+  'image': '',
   'moveActions': {
     'jump': False,
-    'move': False,
+    'stepRight': False,
+    'stepLeft': False,
   }
 }
 
+#game functions
+def stepLeft(char):
+  if returnAction(char,'stepLeft') == False:
+    char['positionY'] = char['positionY'] - 1
 
-#def charJump(char):
- # if charActionRules(char,'jump'):
+def stepRight(char):
+  if returnAction(char,'stepRight') == False:
+    char['positionY'] = char['positionY'] + 1 
 
-#return character action activity True:False
-def charActionRules(char,returnAction):
+#help functions
+def returnAction(char,returnAction):
   for action in charAttr['moveActions']:
     if action == returnAction:
       return charAttr['moveActions'][action]
+  return "undefiend action"  
 
 app = True
 #start program
 while app:
   window.fill(backgroundColor)
+  #event listening
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
             app = False
   keys = pygame.key.get_pressed()
   if keys[pygame.K_LEFT]:
-    charAttr['positionY'] = charAttr['positionY'] - 1
+    stepLeft(charAttr)
   if keys[pygame.K_RIGHT]:
-    charAttr['positionY'] = charAttr['positionY'] + 1
-  if keys[pygame.K_UP]:
-    charAttr['positionX'] = charAttr['positionX'] - 1
-  if keys[pygame.K_DOWN]:
-    charAttr['positionX'] = charAttr['positionX'] + 1
-  
+    stepRight(charAttr)
+  #draw character  
   pygame.draw.rect(window, (charAttr['bgColor']['red'],charAttr['bgColor']['green'],charAttr['bgColor']['blue']), (charAttr['positionY'],charAttr['positionX'],charAttr['sizeWidth'], charAttr['sizeHeight']))
   pygame.display.update()
 
   #testing functions
-  charActionRules(charAttr, 'jump')
-
 
 #stop instance            
 pygame.quit()
