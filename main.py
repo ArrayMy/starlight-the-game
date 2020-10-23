@@ -2,7 +2,7 @@ from app.characters import Characters
 from app.window import Window
 from app.enemies import Entities
 import random
-
+ 
 #Create window
 app = Window()
 app.setSize(800,600)
