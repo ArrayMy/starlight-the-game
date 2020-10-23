@@ -6,7 +6,7 @@ import random
 #Create window
 app = Window()
 app.setSize(800,600)
-app.setName('Application Name')
+app.setName('fffffaff')
 
 #Create entities
 mainCharacter = Characters()
