@@ -11,6 +11,8 @@ class Window:
 
   #set window size    
   def setSize(self,width,height):
+    self.windowWidth = width
+    self.windowHeight = height
     self.window = pygame.display.set_mode([width, height])
   
   #set window name
@@ -31,6 +33,27 @@ class Window:
       self.window,
       (character.attributes['color']),
       (character.attributes['positionY'],character.attributes['positionX'],character.attributes['sizeWidth'],character.attributes['sizeHeight']))
+
+
+  def window_show_character_base(self, base):
+    localWindowWidth = self.windowWidth
+    localItemsCount = base.itemsCount
+    localProces = True
+    while localProces:
+      if(localWindowWidth > 0):
+        localItemsCount = localItemsCount + 1
+        localWindowWidth = localWindowWidth - 60
+        pygame.draw.rect(self.window,
+         (base.attributes['color']),
+         (localWindowWidth,
+          base.attributes['positionX'],
+          base.attributes['sizeWidth'],
+          base.attributes['sizeHeight']))
+      else:
+        base.itemsCount = localItemsCount
+        localProces = False
+
+
   
   #close button, event get (need for keyboard listeting)
   def window_close_cross(self):
@@ -46,3 +69,5 @@ class Window:
     if keys[pygame.K_RIGHT]:
       return 'right'
 
+  def window_show_base(self, base):
+    print("zesz")
