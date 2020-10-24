@@ -51,6 +51,7 @@ while program_status:
     #base
   app.window_show_character_base(mainCharacterBase)
   #Update entities
+    #character
   mainCharacter.move(app.window_listen_keyboard())
   #Render updates
   app.window_update()
