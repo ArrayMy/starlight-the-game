@@ -42,6 +42,7 @@ class Window:
     while localProces:
       if(localWindowWidth > 0):
         localItemsCount = localItemsCount + 1
+        base.items[localItemsCount] = localWindowWidth
         localWindowWidth = localWindowWidth - 60
         pygame.draw.rect(self.window,
          (base.attributes['color']),
