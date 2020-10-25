@@ -34,6 +34,14 @@ class Window:
       (character.attributes['color']),
       (character.attributes['positionY'],character.attributes['positionX'],character.attributes['sizeWidth'],character.attributes['sizeHeight']))
 
+  def window_show_enemies(self, enemy):
+    pygame.draw.rect(
+      self.window,
+      (enemy.attributes['color']),
+      (enemy.attributes['positionY'],
+      enemy.attributes['positionX'],
+      enemy.attributes['sizeWidth'],
+      enemy.attributes['sizeHeight']))    
 
   def window_show_character_base(self, base):
     localWindowWidth = self.windowWidth
