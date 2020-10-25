@@ -1,6 +1,8 @@
 #class for enemies entities
 
-class Entities:
+class Enemies:
+
+  speed = 1
 
   attributes = {} 
 
@@ -8,3 +10,9 @@ class Entities:
     for key, value in kwargs.items():
       self.attributes[key] = value
 
+  def move(self,type):
+    if(type == "loop"):
+      self.stepUp()
+  
+  def stepUp(self):
+    self.attributes['positionX'] = self.attributes['positionX'] - self.speed
