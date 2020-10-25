@@ -63,6 +63,41 @@ class Window:
         localProces = False
 
 
+  def window_create_shoot(self,character,type):
+    if(type == "classic"):
+      localHeight = 10
+      localWidth = 10
+    pygame.draw.rect(
+      self.window,
+      (125,125,125),
+      (character.attributes['positionY'],
+      character.attributes['positionX'],
+      localHeight,
+      localWidth))
+    #Save shoots in array
+    if(len(character.shoots) == 0):
+      localShootsPosition = 0
+    else:
+      localShootsPosition = len(character.shoots)
+    character.shoots[localShootsPosition] = {
+      'color': (125,125,125),
+      'positionX': character.attributes['positionX'],
+      'positionY': character.attributes['positionY'],
+      'height': localHeight,
+      'width': localWidth,
+      'type': type,
+    }
+
+  def window_render_shoots(self, character):
+    for shoot in character.shoots:
+      pygame.draw.rect(
+        self.window,
+        (shoot['color']),
+        (shoot['positionY'],
+        shoot['positionX'],
+        shoot['height'],
+        shoot['width']))
+      shoot['positionX'] + 1    
   
   #close button, event get (need for keyboard listeting)
   def window_close_cross(self):
@@ -77,6 +112,5 @@ class Window:
       return 'left'
     if keys[pygame.K_RIGHT]:
       return 'right'
-
-  def window_show_base(self, base):
-    print("zesz")
+    if keys[pygame.K_SPACE]:
+      return 'shoot'

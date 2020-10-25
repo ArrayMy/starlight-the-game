@@ -56,7 +56,9 @@ while program_status:
   app.window_show_enemies(enemy)
   #Update entities
     #character
-  mainCharacter.move(app.window_listen_keyboard())
+  mainCharacter.move(app.window_listen_keyboard(),app)
+  app.window_render_shoots(mainCharacter)
+    #enemy
   enemy.move("loop")
   #Render updates
   app.window_update()
