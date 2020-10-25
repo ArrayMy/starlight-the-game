@@ -87,17 +87,20 @@ class Window:
       'width': localWidth,
       'type': type,
     }
+    print(character.shoots)
 
   def window_render_shoots(self, character):
-    for shoot in character.shoots:
-      pygame.draw.rect(
-        self.window,
-        (shoot['color']),
-        (shoot['positionY'],
-        shoot['positionX'],
-        shoot['height'],
-        shoot['width']))
-      shoot['positionX'] + 1    
+    print(character.shoots)
+    #for shoot in character.shoots:
+     # print(shoot)
+      #pygame.draw.rect(
+       # self.window,
+        #(shoot['color']),
+        #(shoot['positionY'],
+        #shoot['positionX'],
+        #shoot['height'],
+        #shoot['width']))
+      #shoot['positionX'] + 1    
   
   #close button, event get (need for keyboard listeting)
   def window_close_cross(self):
