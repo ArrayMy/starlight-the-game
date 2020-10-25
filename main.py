@@ -1,8 +1,9 @@
+#Application
 from app.characters import Characters
 from app.window import Window
-from app.enemies import Entities
+from app.enemies import Enemies
 from app.base import Base
-
+#Libreries
 import random
  
 #Create window
@@ -19,10 +20,11 @@ mainCharacter.set(
   positionY = 390,
   color = (0,0,255))
 
-enemy =  Entities()
+enemy =  Enemies()
+enemy.speed = 0.25
 enemy.set(
-  sizeHeight = 30,
-  sizeWidth = 30,
+  sizeHeight = 40,
+  sizeWidth = 40,
   positionX = 580,
   positionY = random.randint(20, 780),
   color = (255,0,0)
@@ -50,8 +52,11 @@ while program_status:
   app.window_show_character(mainCharacter)
     #base
   app.window_show_character_base(mainCharacterBase)
+    #test enemy
+  app.window_show_enemies(enemy)
   #Update entities
     #character
   mainCharacter.move(app.window_listen_keyboard())
+  enemy.move("loop")
   #Render updates
   app.window_update()
